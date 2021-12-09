@@ -1,4 +1,5 @@
 import {Task} from '../interfaces/Task'
+import TaskCard from './TaskCard'
 
 interface Props {
     tasks: Task[]
@@ -7,15 +8,11 @@ interface Props {
 export default function TaskList({tasks}:Props) {
     return (
         <div>
-        {tasks.map(task => (
-        <div>
-          <p>{task.id}</p>
-          <p>{task.title}</p>
-          <p>{task.description}</p>
-          <p>{task.completed}</p>
-        </div>
-      )
-      )}
+          {tasks.map(task => (
+            <div className="col md-4">
+              <TaskCard task={task} />
+            </div>
+          ))}
         </div>
     )
 }
