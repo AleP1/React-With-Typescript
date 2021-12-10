@@ -6,7 +6,7 @@ import { App } from './App';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App title="typescrpt!"/>
+    <App title="Fast Notes!"/>
   </React.StrictMode>,
   document.getElementById('root')
 );

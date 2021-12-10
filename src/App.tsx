@@ -1,44 +1,54 @@
-import { useState } from 'react';
+import { useState } from "react";
+import { Task } from "./interfaces/Task";
+import logo from "./components/logo.png";
+import { TaskForm } from "./components/TaskForm";
+import { TaskList } from "./components/TaskList";
 import './App.css';
-import TaskForm from './components/TaskForm';
-import TaskList from './components/TaskList';
-import {Task} from './interfaces/Task';
-
 interface Props {
-    title?: string;
+  title?: string;
 }
 
-export function App({ title }: Props) {
+export const App = ({ title = "Fast Notes" }: Props): JSX.Element => {
+  const [tasks, setTasks] = useState<Task[]>([]);
 
-  const [task, setTask] = useState<Task[]>([{
-    id: 1,
-    title: "Learn React",
-    description: "Learn React",
-    completed: false
-  }]);
+  const getCurrentTimestamp = (): number => new Date().getTime();
+
+  const addANewTask = (task: Task): void =>
+    setTasks([
+      ...tasks,
+      { ...task, completed: false, id: getCurrentTimestamp() },
+    ]);
+
+  const deleteATask = (id: number): void =>
+    setTasks(tasks.filter((task) => task.id !== id));
 
   return (
-    <div className="bg-dark text-white" style={{height: '100vh'}}>
-
+    <div className="bg-dark" style={{ height: "100vh" }}>
       <nav className="navbar navbar-dark bg-primary">
-      <div className='container'>
-          <img src="https://yt3.ggpht.com/ytc/AKedOLQKWZouCzx15GWTKF6cnoqE86dFknpb7pVusF6oHg=s48-c-k-c0x00ffffff-no-rj" alt="React logo" style={{width: "4rem"}} className="navbar-brand"/>
-          {title && <h1><a href="/">{title}</a></h1>}
+        <div className="container">
+          <a className="navbar-brand" href="/">
+            <img className="logo" src={logo} alt="React Logo" style={{ width: "4rem" }} />
+            {title}
+          </a>
         </div>
       </nav>
 
       <main className="container p-4">
         <div className="row">
-        <div className="col md-4">
-          <TaskForm/>
-        </div>
-        <div className="col-md-8">
-          <div className="row">
-            <TaskList tasks={task}/>
+          <div className="col-md-4">
+            <TaskForm addANewTask={addANewTask} />
           </div>
-        </div>
+          <div className="col-md-8">
+            <div className="row">
+              <h6 className="text-light d-flex justify-content-end">
+                Total Tasks <span className="badge bg-primary ms-2">{tasks.length}</span>
+              </h6>
+
+              <TaskList tasks={tasks} deleteATask={deleteATask} />
+            </div>
+          </div>
         </div>
       </main>
     </div>
   );
-}
+};

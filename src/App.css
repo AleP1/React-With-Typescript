@@ -1,3 +1,7 @@
+body{
+  font-family: 'Roboto Slab', serif;
+}
+
 .App {
   text-align: center;
 }
@@ -5,6 +9,11 @@
 .App-logo {
   height: 40vmin;
   pointer-events: none;
+}
+
+.logo {
+	-webkit-animation: rotate-center 30s ease-in-out infinite both;
+	        animation: rotate-center 30s ease-in-out infinite both;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -28,11 +37,38 @@
   color: #61dafb;
 }
 
+button{
+  width: 60px;
+  height: 60px;
+}
+
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
   }
   to {
     transform: rotate(360deg);
+  }
+}
+
+@-webkit-keyframes rotate-center {
+  0% {
+    -webkit-transform: rotate(0);
+            transform: rotate(0);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+@keyframes rotate-center {
+  0% {
+    -webkit-transform: rotate(0);
+            transform: rotate(0);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
   }
 }

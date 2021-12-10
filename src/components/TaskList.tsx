@@ -1,18 +1,29 @@
-import {Task} from '../interfaces/Task'
-import TaskCard from './TaskCard'
+import React from "react";
+import { TaskCard } from "./TaskCard";
+import { Task } from "../interfaces/Task";
+import { BiTaskX } from "react-icons/bi";
 
 interface Props {
-    tasks: Task[]
+  tasks: Task[];
+  deleteATask: (id: number) => any;
 }
 
-export default function TaskList({tasks}:Props) {
+export const TaskList = ({ tasks, deleteATask }: Props): JSX.Element => {
+  if (tasks.length === 0)
     return (
-        <div>
-          {tasks.map(task => (
-            <div className="col md-4">
-              <TaskCard task={task} />
-            </div>
-          ))}
+      <div className="text-light text-center">
+        <h1>There are no tasks yet</h1>
+        <BiTaskX size="20rem" />
+      </div>
+    );
+
+  return (
+    <>
+      {tasks.map((task, i) => (
+        <div className="col-md-4 mt-2">
+          <TaskCard key={task.id} task={task} deleteATask={deleteATask} />
         </div>
-    )
-}
+      ))}
+    </>
+  );
+};
